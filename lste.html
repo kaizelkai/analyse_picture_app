@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uploader des Images</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .upload-container {
+      border: 2px dashed #007BFF;
+      padding: 0;
+      border-radius: 10px;
+      margin: 20px auto;
+      width: 80%;
+      max-width: 500px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      background-color: #f9f9f9;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    input[type="file"] {
+      display: none;
+    }
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+    }
+    #imageList {
+      margin-top: 30px;
+      list-style: none;
+      padding: 0;
+    }
+    #imageList li {
+      margin-bottom: 10px;
+    }
+    #imageList img {
+      max-width: 100px;
+      height: auto;
+      cursor: pointer;
+    }
+    .rating-container {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+    .rating-modal {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+    }
+    .rating-modal img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+    .rating-stars {
+      margin-top: 10px;
+    }
+    .rating-stars input {
+      margin: 0 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Uploader des Images</h1>
+  
+  <div class="upload-container" id="dropZone">
+    <label for="imageUpload" id="uploadLabel">Cliquez pour ajouter une image</label>
+    <input type="file" id="imageUpload" accept="image/*">
+  </div>
+
+  <h2>Liste des Images Téléchargées</h2>
+  <ul id="imageList"></ul>
+
+  <!-- Modal de notation -->
+  <div class="rating-container" id="ratingModal">
+    <div class="rating-modal">
+      <img id="ratingImage" src="" alt="Image à noter">
+      <h3>Notez cette image (0 à 10)</h3>
+      <div class="rating-stars">
+        <input type="radio" id="star0" name="rating" value="0">
+        <label for="star0">0</label>
+        <input type="radio" id="star1" name="rating" value="1">
+        <label for="star1">1</label>
+        <input type="radio" id="star2" name="rating" value="2">
+        <label for="star2">2</label>
+        <input type="radio" id="star3" name="rating" value="3">
+        <label for="star3">3</label>
+        <input type="radio" id="star4" name="rating" value="4">
+        <label for="star4">4</label>
+        <input type="radio" id="star5" name="rating" value="5">
+        <label for="star5">5</label>
+        <input type="radio" id="star6" name="rating" value="6">
+        <label for="star6">6</label>
+        <input type="radio" id="star7" name="rating" value="7">
+        <label for="star7">7</label>
+        <input type="radio" id="star8" name="rating" value="8">
+        <label for="star8">8</label>
+        <input type="radio" id="star9" name="rating" value="9">
+        <label for="star9">9</label>
+        <input type="radio" id="star10" name="rating" value="10">
+        <label for="star10">10</label>
+      </div>
+      <button id="submitRating">Soumettre la note</button>
+      <button id="closeRating">Fermer</button>
+    </div>
+  </div>
+
+  <script>
+    const imageUpload = document.getElementById('imageUpload');
+    const imageList = document.getElementById('imageList');
+    const ratingModal = document.getElementById('ratingModal');
+    const ratingImage = document.getElementById('ratingImage');
+    const submitRating = document.getElementById('submitRating');
+    const closeRating = document.getElementById('closeRating');
+    let currentImageSrc = '';
+
+    // Fonction pour afficher l'image dans la liste
+    function displayImage(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const listItem = document.createElement('li');
+        const imgElement = document.createElement('img');
+        imgElement.src = e.target.result;
+        imgElement.alt = "Image à noter";
+        listItem.appendChild(imgElement);
+        imageList.appendChild(listItem);
+
+        // Ajouter un événement pour afficher l'interface de notation
+        imgElement.addEventListener('click', () => {
+          openRatingModal(imgElement.src);
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Afficher le modal de notation
+    function openRatingModal(imageSrc) {
+      currentImageSrc = imageSrc;
+      ratingImage.src = imageSrc;
+      ratingModal.style.display = 'flex';
+    }
+
+    // Fermer le modal de notation
+    closeRating.addEventListener('click', () => {
+      ratingModal.style.display = 'none';
+    });
+
+    // Soumettre la note
+    submitRating.addEventListener('click', () => {
+      const rating = document.querySelector('input[name="rating"]:checked');
+      if (rating) {
+        alert(`Vous avez noté l'image avec ${rating.value} points`);
+      } else {
+        alert('Veuillez sélectionner une note avant de soumettre');
+      }
+      ratingModal.style.display = 'none';
+    });
+
+    // Événement de changement (sélection de l'image)
+    imageUpload.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        displayImage(file);
+      }
+    });
+  </script>
+
+</body>
+</html>

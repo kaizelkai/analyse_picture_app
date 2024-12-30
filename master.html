@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liste des Images</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    #imageGallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    #imageGallery img {
+      margin: 10px;
+      max-width: 150px;
+      height: auto;
+      cursor: pointer;
+    }
+    #imageModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    #modalContent {
+      background: rgb(255, 255, 255);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 80%;
+      max-width: 600px;
+    }
+    #modalContent img {
+      width: 100%;
+      height: auto;
+      max-width: 400px;
+      margin-bottom: 20px;
+    }
+    .rating {
+      margin-top: 10px;
+    }
+    .rating input {
+      margin: 5px;
+    }
+    #closeModal, #validateButton {
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    #validateButton {
+      margin-top: 10px;
+    }
+    img{
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Galerie d'Images</h1>
+  <div id="imageGallery"></div>
+
+  <!-- Modal pour afficher l'image et la notation -->
+  <div id="imageModal">
+    <div id="modalContent">
+      <img id="modalImage" alt="Image pour noter">
+      <h3>Notez cette image</h3>
+      <div class="rating">
+        <label>Notez la beauté de l'image :</label>
+        <div>
+          <input type="radio" id="rate1" name="rating" value="1"><label for="rate1">1</label>
+          <input type="radio" id="rate2" name="rating" value="2"><label for="rate2">2</label>
+          <input type="radio" id="rate3" name="rating" value="3"><label for="rate3">3</label>
+          <input type="radio" id="rate4" name="rating" value="4"><label for="rate4">4</label>
+          <input type="radio" id="rate5" name="rating" value="5"><label for="rate5">5</label>
+          <input type="radio" id="rate6" name="rating" value="6"><label for="rate6">6</label>
+          <input type="radio" id="rate7" name="rating" value="7"><label for="rate7">7</label>
+          <input type="radio" id="rate8" name="rating" value="8"><label for="rate8">8</label>
+          <input type="radio" id="rate9" name="rating" value="9"><label for="rate9">9</label>
+          <input type="radio" id="rate10" name="rating" value="10"><label for="rate10">10</label>
+        </div>
+      </div>
+      <!-- Ajouter le bouton Valider -->
+      <button id="validateButton">Valider</button>
+      <button id="closeModal">Fermer</button>
+    </div>
+  </div>
+
+  <script src="js/getPictures.js">
+  </script>
+
+</body>
+</html>
